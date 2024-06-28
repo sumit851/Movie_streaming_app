@@ -22,15 +22,22 @@ export default function UserListedMovies() {
   });
 
   useEffect(() => {
-    if (email) {
-      dispatch(getUsersLikedMovies(email));
-    }
-  }, [email]);
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
+      if (currentUser) setEmail(currentUser.email);
+      else navigate("/login");
+    });
 
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
-  };
+    const handleScroll = () => {
+      setIsScrolled(window.pageYOffset === 0 ? false : true);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [navigate]);
 
   return (
     <Container>
