@@ -9,10 +9,13 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-  .connect("mongodb://localhost:27017/netflix", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://netflix_user:%239%2AWa-%21DfjSkd42@cluster0.rhi50ac.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("DB Connetion Successfull");
   })
